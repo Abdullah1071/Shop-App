@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/product.dart';
+import 'package:shop_app/widgets/product_item_widget.dart';
 
 class ProductsScreen extends StatelessWidget {
   ProductsScreen({super.key});
@@ -57,7 +58,9 @@ class ProductsScreen extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemBuilder: (context, index) => Container(),
+        itemBuilder: (context, index) => ProductItemWidget(
+          product: products[index],
+        ),
       ),
     );
   }
