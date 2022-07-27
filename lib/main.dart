@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/products_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/providers/products_provider.dart';
+import 'package:shop_app/screens/products_detail_screen.dart';
+import 'package:shop_app/screens/products_overview_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,18 +16,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Shop App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
-            .copyWith(secondary: Colors.deepOrange),
-        fontFamily: 'Lato',
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ProductsProvider(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Shop App',
+        theme: ThemeData(
+          fontFamily: 'Lato',
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+              .copyWith(secondary: Colors.deepOrange),
+        ),
+        routes: {
+          '/': (context) => const ProductsOverviewScreen(),
+          ProductDetailsScreen.route:(context) => const ProductDetailsScreen(),
+        },
+        initialRoute: '/',
       ),
-      routes: {
-        '/': (context) => ProductsScreen(),
-      },
-      initialRoute: '/',
     );
   }
 }

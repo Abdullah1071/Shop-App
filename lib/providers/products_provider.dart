@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/product.dart';
-import 'package:shop_app/widgets/product_item_widget.dart';
 
-class ProductsScreen extends StatelessWidget {
-  ProductsScreen({super.key});
-
-  static const route = '/ProductsScreen';
-
-  final List<Product> products = [
+class ProductsProvider with ChangeNotifier {
+  final List<Product> _products = [
     Product(
       id: 'p1',
       title: 'Red Shirt',
@@ -42,26 +37,5 @@ class ProductsScreen extends StatelessWidget {
     ),
   ];
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Shop App'),
-        centerTitle: true,
-      ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(10),
-        itemCount: products.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 1.5,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-        itemBuilder: (context, index) => ProductItemWidget(
-          product: products[index],
-        ),
-      ),
-    );
-  }
+  List<Product> get products => _products;
 }
